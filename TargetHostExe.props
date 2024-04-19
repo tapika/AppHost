@@ -1,0 +1,7 @@
+<Project>
+  <PropertyGroup>
+    <!-- Re-define to target folder of your executable -->
+    <TargetHostExePath>$(OutputPath)$(AssemblyName).exe</TargetHostExePath>
+  </PropertyGroup>
+</Project>
+

@@ -1,0 +1,59 @@
+﻿<Project InitialTargets="LoadAppHostConfig" Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net472</TargetFramework>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseWPF>true</UseWPF>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <TargetHostExePath>$(OutputPath)$(AssemblyName).exe</TargetHostExePath>
+  </PropertyGroup>
+  
+  <Import Project="$(MSBuildThisFileDirectory)\TargetHostExe.props" Condition="Exists('$(MSBuildThisFileDirectory)\TargetHostExe.props')" />
+
+  <PropertyGroup>
+    <OutputPath>$([System.IO.Path]::GetDirectoryName(`$(TargetHostExePath)`))</OutputPath>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Lib.Harmony" Version="2.3.3" />
+    <PackageReference Include="RoslynCodeTaskFactory" Version="2.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+
+  <UsingTask TaskName="LoadAppConfig" TaskFactory="CodeTaskFactory" AssemblyFile="$(RoslynCodeTaskFactory)" Condition=" '$(RoslynCodeTaskFactory)' != ''">
+    <ParameterGroup>
+      <Filename ParameterType="System.String" Required="true" />
+      <TargetHostExePath ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    
+    <Task>
+      <Reference Include="System.Core" />
+      <Using Namespace="System" />
+      <Using Namespace="System.IO" />
+      <Using Namespace="System.Xml.Linq" />
+      <Code Type="Fragment" Language="C#">
+      <![CDATA[
+            XDocument document = new XDocument();
+            var configuration = 
+              new XElement("configuration", 
+                new XElement("appSettings",
+                  new XElement("add",
+                    new XAttribute("key", "HostExe"),
+                    new XAttribute("value", TargetHostExePath)
+                  )
+                )
+              );
+            document.Add(configuration);
+            document.Save(Filename); 
+          ]]>
+      </Code>
+  </Task>
+  </UsingTask>
+
+  <Target Name="LoadAppHostConfig">
+    <LoadAppConfig Filename="$(MSBuildThisFileDirectory)AppHost.Config" TargetHostExePath="$(TargetHostExePath)" Condition=" '$(RoslynCodeTaskFactory)' != ''" />
+  </Target>
+</Project>
