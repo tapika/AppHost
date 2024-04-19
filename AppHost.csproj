@@ -34,20 +34,40 @@
       <Using Namespace="System" />
       <Using Namespace="System.IO" />
       <Using Namespace="System.Xml.Linq" />
+      <Using Namespace="System.Xml.XPath" />
       <Code Type="Fragment" Language="C#">
       <![CDATA[
-            XDocument document = new XDocument();
-            var configuration = 
-              new XElement("configuration", 
-                new XElement("appSettings",
-                  new XElement("add",
-                    new XAttribute("key", "HostExe"),
-                    new XAttribute("value", TargetHostExePath)
-                  )
-                )
-              );
-            document.Add(configuration);
-            document.Save(Filename); 
+            XDocument xdoc;
+
+            if (!File.Exists(Filename))
+            {
+                xdoc = new XDocument(new XElement("configuration"));
+            }
+            else
+            {
+                xdoc = XDocument.Load(Filename);
+            }
+
+            XElement rootNode = xdoc.Root;
+            XElement appSettings = rootNode.Element("appSettings");
+            if (appSettings == null)
+            {
+                appSettings = new XElement("appSettings");
+                rootNode.Add(appSettings);
+            }
+            
+            var appNode = appSettings.Elements("add").FirstOrDefault(x => x.Attribute("key")?.Value == "HostExe");
+            if (appNode == null)
+            {
+                appNode = new XElement("add", new XAttribute("key", "HostExe"), new XAttribute("value", TargetHostExePath));
+                appSettings.Add(appNode);
+            }
+            else
+            {
+                appNode.Attribute("value").Value = TargetHostExePath;
+            }
+
+            xdoc.Save(Filename);
           ]]>
       </Code>
   </Task>
