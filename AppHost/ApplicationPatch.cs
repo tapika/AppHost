@@ -10,7 +10,6 @@ namespace AppHost
 		[HarmonyPostfix]
         static void Postfix()
         {
-            //MessageBox.Show("AppHost: Application initialized");
             ScriptHost.ObserveScript(CsScript.ScriptPath);
         }
     }
