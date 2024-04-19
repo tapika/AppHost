@@ -54,6 +54,6 @@
   </UsingTask>
 
   <Target Name="LoadAppHostConfig">
-    <LoadAppConfig Filename="$(MSBuildThisFileDirectory)AppHost.Config" TargetHostExePath="$(TargetHostExePath)" Condition=" '$(RoslynCodeTaskFactory)' != ''" />
+    <LoadAppConfig Filename="$(MSBuildThisFileDirectory)App.Config" TargetHostExePath="$(TargetHostExePath)" Condition=" '$(RoslynCodeTaskFactory)' != ''" />
   </Target>
 </Project>
