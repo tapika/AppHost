@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HarmonyLib;
+using System;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -50,6 +51,10 @@ namespace AppHost
             {
                 return -6;
             }
+
+            var harmonyInstance = new Harmony("AppHost");
+            var processor = harmonyInstance.CreateClassProcessor(typeof(ApplicationPatch));
+            processor.Patch();
 
             // Run without try-catch handler - this is intentional - give application to handle it's own unhandled exceptions.
             if (entry != null)
