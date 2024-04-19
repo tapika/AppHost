@@ -4,12 +4,13 @@ using System.Windows;
 namespace AppHost
 {
     [HarmonyPatch]
-    public static class ApplicationPatch
+    static class ApplicationPatch
     {
         [HarmonyPatch(typeof(Application), "OnStartup")]
 		[HarmonyPostfix]
         static void Postfix()
         {
+            MessageBox.Show("AppHost: Application initialized");
         }
     }
 }
