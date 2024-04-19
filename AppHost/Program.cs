@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace AppHost
 {
@@ -15,6 +16,18 @@ namespace AppHost
         {
             MethodInfo entry = null;
             string TargetHostExePath = ConfigurationManager.AppSettings["HostExe"];
+            string scriptPath  = ConfigurationManager.AppSettings["Script"];
+            if (!String.IsNullOrEmpty(scriptPath) && !Path.IsPathRooted(scriptPath))
+            {
+                scriptPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), scriptPath);
+            }
+            CsScript.CleanupScScriptTempDir();
+            CsScript.ScriptPath = scriptPath;
+            var dispatcher = Dispatcher.CurrentDispatcher;
+            ScriptHost.OnUIThread = (Action action) =>
+            {
+                dispatcher.Invoke(action);
+            };
 
             if (String.IsNullOrEmpty(TargetHostExePath) || !File.Exists(TargetHostExePath))
             {

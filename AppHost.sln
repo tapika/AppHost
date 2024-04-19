@@ -5,7 +5,9 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppHost", "AppHost\AppHost.csproj", "{7ED4926E-88CA-42AB-AA00-AFA123C57500}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWpfApp", "TestWpfApp\TestWpfApp.csproj", "{511E7C73-22E1-4FAE-97A1-04C1892C0524}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestWpfApp", "TestWpfApp\TestWpfApp.csproj", "{511E7C73-22E1-4FAE-97A1-04C1892C0524}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestScript", "TestScript\TestScript.csproj", "{05C75D60-96AD-4B1A-BA20-B366CDA8006E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{511E7C73-22E1-4FAE-97A1-04C1892C0524}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{511E7C73-22E1-4FAE-97A1-04C1892C0524}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{511E7C73-22E1-4FAE-97A1-04C1892C0524}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05C75D60-96AD-4B1A-BA20-B366CDA8006E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05C75D60-96AD-4B1A-BA20-B366CDA8006E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05C75D60-96AD-4B1A-BA20-B366CDA8006E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05C75D60-96AD-4B1A-BA20-B366CDA8006E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

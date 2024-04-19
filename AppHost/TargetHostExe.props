@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <!-- Re-define to target folder of your executable -->
-    <TargetHostExePath>$(MSBuildThisFileDirectory)..\bin\TestWpfApp.exe</TargetHostExePath>
+    <TargetHostExePath>..\bin\TestWpfApp.exe</TargetHostExePath>
   </PropertyGroup>
 </Project>
 
