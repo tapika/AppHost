@@ -29,6 +29,25 @@ namespace AppHost
                 dispatcher.Invoke(action);
             };
 
+            // These are now written in as generic way as possible, but C# script still does require some knowledge on application.
+            ScriptHost.ConsolePrintLine = (string line) =>
+            {
+                var window = Application.Current.MainWindow;
+                var logTextProp = window.GetType().GetProperty("LogText");
+                if (logTextProp == null)
+                {
+                    return;     //Not TestWpfApp
+                }
+                var value = (String)logTextProp.GetValue(window, null);
+                logTextProp.SetValue(window, value + "\r\n" + line, null);
+            };
+
+            ScriptHost.ConsoleClear = () =>
+            {
+                var window = Application.Current.MainWindow;
+                window.GetType().GetProperty("LogText")?.SetValue(window, "", null);
+            };
+
             if (String.IsNullOrEmpty(TargetHostExePath) || !File.Exists(TargetHostExePath))
             {
                 MessageBox.Show("Please reconfigure 'HostExe' value in AppHost.config file to point to valid executable");

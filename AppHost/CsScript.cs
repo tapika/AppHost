@@ -73,16 +73,6 @@ public class CsScript
             if (refAssemblies == null)
             {
                 var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(a => !a.IsDynamic).Select(a => a.Location).ToList();
-
-                for (int i = 0; i < assemblies.Count; i++)
-                {
-                    if (assemblies[i].EndsWith(".exe") && !assemblies[i].EndsWith("\\scriptStarter.exe"))
-                    {
-                        assemblies.RemoveAt(i);
-                        i--;
-                    }
-                }
-
                 refAssemblies = assemblies.ToArray();
             }
 
