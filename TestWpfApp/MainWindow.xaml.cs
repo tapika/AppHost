@@ -8,7 +8,7 @@ namespace TestWpfApp
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, INotifyPropertyChanged
+    public partial class MainWindow : Window, INotifyPropertyChanged, IConsoleViewModel
     {
         public MainWindow()
         {
@@ -23,6 +23,16 @@ namespace TestWpfApp
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void Clear()
+        {
+            LogText = String.Empty;
+        }
+
+        public void AppendError(string line)
+        {
+            LogText = LogText + Environment.NewLine + line;
         }
 
         public string LogText
