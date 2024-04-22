@@ -15,9 +15,14 @@ In this demo - C# scripts are compiled into temporary folder and assembly name a
 
 Approach like this floods current appdomain, but for quick C# / .net capabilities testing it's maybe not bad.
 
-## User interface
+## Configuring AppHost
 
-It's also possible to embedd WPF UI inside C# script, by making for example script like this:
+In `TargetHostExe.props` there is `TargetHostExePath` configuration parameter which defines where AppHost will be compiled.
+Better to use absolute path with your own executable file.
+
+`App.Config` defines `Script` parameter from where script will be launched. Also recommended to use absolute path, unless it's located relatively to main executable.
+
+When doing final deployment - it's sufficient to copy AppHost.exe & .config to main application folder, so it can be started from there.
 
 ## Referencing external Assemblies
 
